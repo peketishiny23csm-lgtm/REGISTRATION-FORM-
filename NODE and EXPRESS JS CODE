@@ -1,0 +1,24 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const multer = require("multer");
+
+const app = express();
+const port = 3000;
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const upload = multer({ dest: "uploads/" });
+
+app.post("/register", upload.single("profilePic"), (req, res) => {
+  console.log("Form Data Received:");
+  console.log(req.body);
+
+  if (req.file) {
+    console.log("Uploaded File:", req.file);
+  }
+
+  res.send("Registration successful! Check server console for submitted data.");
+});
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
+});
