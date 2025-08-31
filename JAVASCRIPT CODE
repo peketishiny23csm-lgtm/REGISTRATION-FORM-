@@ -1,0 +1,46 @@
+document.getElementById("studentForm").addEventListener("submit", function(event) {
+  let valid = true;
+  let messages = [];
+
+  const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const phone = document.getElementById("phone").value.trim();
+  const agree = document.getElementById("agree").checked;
+
+  if (fname.length < 2) {
+    valid = false;
+    messages.push("First name must be at least 2 characters.");
+  }
+
+  if (lname.length < 2) {
+    valid = false;
+    messages.push("Last name must be at least 2 characters.");
+  }
+
+  if (!email.includes("@")) {
+    valid = false;
+    messages.push("Invalid email address.");
+  }
+
+  if (password.length < 6) {
+    valid = false;
+    messages.push("Password must be at least 6 characters.");
+  }
+
+  if (phone && !/^[0-9]{10}$/.test(phone)) {
+    valid = false;
+    messages.push("Phone number must be 10 digits.");
+  }
+
+  if (!agree) {
+    valid = false;
+    messages.push("You must agree to the terms.");
+  }
+
+  if (!valid) {
+    event.preventDefault();
+    alert(messages.join("\n"));
+  }
+});
